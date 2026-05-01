@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aditya-shop-v1';
+const CACHE_NAME = 'aditya-shop-v2';
 const ASSETS_TO_CACHE = [
   './index.html',
   './app.html',
