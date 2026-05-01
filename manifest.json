@@ -1,0 +1,21 @@
+{
+  "name": "Aditya Enterprises",
+  "short_name": "Aditya Shop",
+  "description": "Aditya Enterprises Management System",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#090B17",
+  "theme_color": "#7B61FF",
+  "icons": [
+    {
+      "src": "A1.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "A1.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

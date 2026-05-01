@@ -1,0 +1,30 @@
+{
+  "name": "aditya-enterprises",
+  "version": "1.0.0",
+  "description": "Aditya Enterprises Management System",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win",
+    "cap:sync": "npx cap sync",
+    "cap:open": "npx cap open android"
+  },
+  "keywords": [],
+  "author": "Aditya Enterprises",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@capacitor/android": "^5.0.0",
+    "@capacitor/cli": "^5.0.0",
+    "@capacitor/core": "^5.0.0",
+    "electron": "^29.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.adityaenterprises.shop",
+    "productName": "Aditya Enterprises",
+    "win": {
+      "target": "nsis"
+    }
+  }
+}

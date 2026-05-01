@@ -1,0 +1,9 @@
+{
+  "appId": "com.adityaenterprises.shop",
+  "appName": "Aditya Enterprises",
+  "webDir": ".",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}

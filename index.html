@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aditya Enterprises — Login</title>
+<meta name="description" content="Aditya Enterprises Management System - Sign in to manage your electronics shop"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#7B61FF;--accent2:#00D4FF;--gradient:linear-gradient(135deg,#7B61FF 0%,#00D4FF 100%)}
+[data-theme="dark"]{--bg:#090B17;--card:rgba(15,17,32,.9);--border:rgba(123,97,255,.2);--text:#E8EBF8;--text2:#8D96C0;--input-bg:rgba(255,255,255,.06)}
+[data-theme="light"]{--bg:#F6F8FF;--card:rgba(255,255,255,.9);--border:rgba(123,97,255,.15);--text:#0D0F1C;--text2:#525775;--input-bg:#F0F4FF}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden;transition:background .3s;position:relative}
+/* Animated Background */
+.bg-wrap{position:fixed;inset:0;z-index:0;overflow:hidden}
+.bg-blob{position:absolute;border-radius:50%;filter:blur(120px);animation:float 8s ease-in-out infinite}
+.blob1{width:600px;height:600px;background:rgba(123,97,255,.25);top:-200px;left:-200px;animation-delay:0s}
+.blob2{width:500px;height:500px;background:rgba(0,212,255,.2);bottom:-150px;right:-150px;animation-delay:3s}
+.blob3{width:350px;height:350px;background:rgba(255,97,155,.15);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:1.5s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,20px) scale(1.05)}}
+/* Grid overlay */
+.bg-grid{position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(123,97,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(123,97,255,.04) 1px,transparent 1px);background-size:40px 40px}
+/* Auth Container */
+.auth-container{position:relative;z-index:1;width:100%;max-width:460px}
+.brand{text-align:center;margin-bottom:32px}
+.brand-logo{width:60px;height:60px;border-radius:18px;background:var(--gradient);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;box-shadow:0 8px 32px rgba(123,97,255,.45);animation:pulse-logo 3s ease infinite}
+@keyframes pulse-logo{0%,100%{box-shadow:0 8px 32px rgba(123,97,255,.45)}50%{box-shadow:0 12px 44px rgba(123,97,255,.7)}}
+.brand h1{font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:6px}
+.brand p{color:var(--text2);font-size:.875rem}
+.auth-card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:36px;backdrop-filter:blur(24px);box-shadow:0 24px 60px rgba(0,0,0,.35)}
+/* Tabs */
+.auth-tabs{display:flex;background:var(--input-bg);border-radius:12px;padding:4px;margin-bottom:28px}
+.auth-tab{flex:1;padding:10px;border-radius:9px;font-size:.875rem;font-weight:600;text-align:center;cursor:pointer;transition:all .22s ease;color:var(--text2)}
+.auth-tab.active{background:var(--gradient);color:#fff;box-shadow:0 4px 14px rgba(123,97,255,.4)}
+/* Forms */
+.auth-form{display:none}
+.auth-form.active{display:block;animation:slideUp .3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.form-group{margin-bottom:20px}
+.form-label{display:block;font-size:.8rem;font-weight:600;color:var(--text2);margin-bottom:8px}
+.input-wrap{position:relative}
+.input-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text2);font-size:1rem;pointer-events:none}
+.form-input{width:100%;padding:13px 14px 13px 42px;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;font-size:.9rem;color:var(--text);font-family:'Inter',sans-serif;transition:all .22s ease}
+.form-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(123,97,255,.15);background:rgba(123,97,255,.06)}
+.form-input::placeholder{color:var(--text2)}
+.eye-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text2);cursor:pointer;font-size:1rem;transition:color .2s}
+.eye-toggle:hover{color:var(--accent)}
+.form-footer{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.remember{display:flex;align-items:center;gap:8px;font-size:.825rem;font-weight:500;cursor:pointer}
+.remember input{accent-color:var(--accent);width:16px;height:16px;cursor:pointer}
+.forgot{font-size:.825rem;color:var(--accent);font-weight:500;background:none;border:none;cursor:pointer;transition:opacity .2s}
+.forgot:hover{opacity:.7}
+.btn-auth{width:100%;padding:14px;border-radius:12px;background:var(--gradient);color:#fff;font-size:.95rem;font-weight:700;font-family:'Inter',sans-serif;border:none;cursor:pointer;position:relative;overflow:hidden;transition:all .22s ease;box-shadow:0 6px 24px rgba(123,97,255,.4)}
+.btn-auth:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(123,97,255,.55)}
+.btn-auth:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.btn-auth .loader{display:none;width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto}
+.btn-auth.loading .btn-text{display:none}
+.btn-auth.loading .loader{display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--text2);font-size:.8rem}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.auth-footer{text-align:center;margin-top:22px;font-size:.825rem;color:var(--text2)}
+/* Demo creds */
+.demo-box{background:rgba(123,97,255,.1);border:1px solid rgba(123,97,255,.25);border-radius:12px;padding:14px;margin-top:20px;text-align:center}
+.demo-box p{font-size:.78rem;color:var(--text2);margin-bottom:6px}
+.demo-box strong{color:var(--accent);font-size:.825rem}
+/* Theme toggle */
+.theme-float{position:fixed;top:20px;right:20px;z-index:99;width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);font-size:1.1rem;transition:all .2s;backdrop-filter:blur(10px)}
+.theme-float:hover{color:var(--accent);border-color:var(--accent)}
+.install-float{position:fixed;bottom:20px;right:20px;z-index:99;padding:10px 18px;border-radius:24px;background:var(--gradient);color:#fff;border:none;font-family:'Inter',sans-serif;font-weight:600;font-size:.85rem;cursor:pointer;box-shadow:0 8px 24px rgba(123,97,255,.4);display:none;align-items:center;gap:8px;transition:all .2s;animation:slideUp .4s ease}
+.install-float:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(123,97,255,.5)}
+</style>
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" type="image/jpeg" href="A1.jpeg" />
+</head>
+<body>
+<div class="bg-wrap">
+  <div class="bg-blob blob1"></div>
+  <div class="bg-blob blob2"></div>
+  <div class="bg-blob blob3"></div>
+</div>
+<div class="bg-grid"></div>
+
+<button class="theme-float" id="themeBtn" title="Toggle theme"><i class="ri-sun-line" id="themeIcon"></i></button>
+
+<div class="auth-container">
+  <div class="brand">
+    <div class="brand-logo"><i class="ri-flashlight-fill" style="color:#fff"></i></div>
+    <h1>Aditya Enterprises</h1>
+    <p>Premium Electronics Shop Management System</p>
+  </div>
+
+  <div class="auth-card">
+    <div class="auth-tabs" style="display:none">
+      <div class="auth-tab active" id="tab-login" onclick="switchTab('login')">Sign In</div>
+    </div>
+
+    <!-- Login Form -->
+    <form class="auth-form active" id="form-login" onsubmit="handleLogin(event)">
+      <div style="text-align:center;margin-bottom:20px;font-size:1.1rem;font-weight:600;color:var(--accent)">
+        Welcome Back, Aditya
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email / Username</label>
+        <div class="input-wrap">
+          <i class="ri-user-line"></i>
+          <input type="email" class="form-input" id="login-email" placeholder="Enter your email"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="input-wrap">
+          <i class="ri-lock-line"></i>
+          <input type="password" class="form-input" id="login-pass" placeholder="Enter your password"/>
+          <i class="ri-eye-off-line eye-toggle" id="eye1" onclick="toggleEye('login-pass','eye1')"></i>
+        </div>
+      </div>
+      <div class="form-footer">
+        <label class="remember"><input type="checkbox" id="remember" checked/> Remember me</label>
+      </div>
+      <button type="submit" class="btn-auth" id="btn-login">
+        <span class="btn-text">Sign In</span>
+        <div class="loader"></div>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+<script>
+// ----- ANTI-THEFT PROTECTION -----
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.onkeydown = function(e) {
+  if (e.keyCode == 123) return false; // F12
+  if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) return false;
+  if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // Ctrl+U
+};
+// ---------------------------------
+
+// Firebase Setup
+const firebaseConfig = {
+  apiKey: "AIzaSyDaGEHNhL4xuur4YBhYZjPpIDfHFvJbReY",
+  authDomain: "adityaenterprises-39b8f.firebaseapp.com",
+  projectId: "adityaenterprises-39b8f",
+  storageBucket: "adityaenterprises-39b8f.firebasestorage.app",
+  messagingSenderId: "59961846035",
+  appId: "1:59961846035:web:9df67e443f63672d6212e6"
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// Redirect if already logged in via Firebase memory
+auth.onAuthStateChanged(user => {
+  if (user) { window.location.href = 'app.html'; }
+});
+
+// Theme
+const savedTheme = localStorage.getItem('shopapp_theme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+updateThemeIcon(savedTheme);
+
+function updateThemeIcon(t) {
+  document.getElementById('themeIcon').className = t === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+}
+document.getElementById('themeBtn').onclick = () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('shopapp_theme', next);
+  updateThemeIcon(next);
+};
+
+function switchTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.toggle('active', t.id === 'tab-' + tab));
+  document.querySelectorAll('.auth-form').forEach(f => f.classList.toggle('active', f.id === 'form-' + tab));
+}
+
+function toggleEye(inputId, iconId) {
+  const inp = document.getElementById(inputId);
+  const ico = document.getElementById(iconId);
+  if (inp.type === 'password') { inp.type = 'text'; ico.className = 'ri-eye-line eye-toggle'; }
+  else { inp.type = 'password'; ico.className = 'ri-eye-off-line eye-toggle'; }
+}
+
+// Wipe local static dummy data completely
+localStorage.removeItem('shopapp_users');
+
+function handleLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btn-login');
+  btn.classList.add('loading'); btn.disabled = true;
+  const email = document.getElementById('login-email').value;
+  const pass  = document.getElementById('login-pass').value;
+  
+  if(!email || !pass) {
+    btn.classList.remove('loading'); btn.disabled = false;
+    showAuthError('Please enter email and password.');
+    return;
+  }
+
+  // Connect to Firebase Cloud Authentication
+  auth.signInWithEmailAndPassword(email, pass).then(cred => {
+    // Generate a secure local session stub for visual avatar rendering only
+    const user = { name: cred.user.email.split('@')[0], shop: 'Aditya Enterprises', email: cred.user.email, role: 'admin' };
+    localStorage.setItem('shopapp_session', JSON.stringify({ ...user, loginTime: new Date().toISOString() }));
+    // Page will jump via onAuthStateChanged automatically
+  }).catch(err => {
+    btn.classList.remove('loading'); btn.disabled = false;
+    showAuthError('Invalid credentials or user not found.');
+  });
+}
+
+function handleSignup(e) {
+  e.preventDefault();
+  // Disabled intentionally for high security
+  showAuthError('Public Registration is disabled for Enterprise Security!');
+}
+
+function showAuthError(msg) {
+  let err = document.getElementById('auth-err');
+  if (!err) {
+    err = document.createElement('div');
+    err.id = 'auth-err';
+    err.style.cssText = 'background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:#EF4444;padding:10px 14px;border-radius:10px;font-size:.825rem;text-align:center;margin-top:14px;font-weight:500';
+    document.querySelector('.auth-card').appendChild(err);
+  }
+  err.textContent = msg;
+  setTimeout(() => err && err.remove(), 4000);
+}
+
+// ----- PWA INSTALLATION LOGIC -----
+let deferredPrompt;
+const installBtn = document.createElement('button');
+installBtn.className = 'install-float';
+installBtn.innerHTML = '<i class="ri-download-cloud-2-line"></i> <span id="install-text">Install App</span>';
+document.body.appendChild(installBtn);
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed: ', err));
+  });
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  // Detect device type for custom text
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  document.getElementById('install-text').textContent = isMobile ? 'Install Mobile App' : 'Install Desktop App';
+  
+  installBtn.style.display = 'flex';
+});
+
+installBtn.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    installBtn.style.display = 'none';
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to the install prompt: ${outcome}`);
+    deferredPrompt = null;
+  }
+});
+// ---------------------------------
+</script>
+</body>
+</html>
