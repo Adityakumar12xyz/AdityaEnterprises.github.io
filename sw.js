@@ -1,10 +1,10 @@
 const CACHE_NAME = 'aditya-shop-v1';
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/app.html',
-  '/css/main.css',
-  '/A1.jpeg'
+  './',
+  './index.html',
+  './app.html',
+  './css/main.css',
+  './A1.jpeg'
 ];
 
 self.addEventListener('install', (event) => {
