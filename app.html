@@ -2236,6 +2236,8 @@ installAppBtn.addEventListener('click', async () => {
     const { outcome } = await deferredAppPrompt.userChoice;
     console.log(`User response to the install prompt: ${outcome}`);
     deferredAppPrompt = null;
+  } else {
+    alert("⚠️ App Install Failed!\n\nReasons:\n1. You must run this using 'Live Server' in VS Code. It does not work on direct file paths.\n2. You might already have this app installed. Check your desktop or apps list.");
   }
 });
 // ---------------------------------

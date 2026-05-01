@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>Aditya Enterprises — Mobile App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+<link rel="stylesheet" href="css/mobile.css"/>
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" type="image/jpeg" href="A1.jpeg" />
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="mobile-header">
+    <div class="logo">
+      <i class="ri-flashlight-fill"></i>
+      <span>Aditya Enterprises</span>
+    </div>
+    <div class="header-actions">
+      <button onclick="Mobile.toggleTheme()"><i class="ri-moon-line" id="theme-icon"></i></button>
+      <button onclick="Mobile.logout()"><i class="ri-logout-box-line" style="color:var(--danger)"></i></button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="mobile-content" id="main-content">
+    
+    <!-- HOME PAGE -->
+    <section class="page active" id="page-home">
+      <div class="welcome-box">
+        <h2 id="home-greeting">Hello, Aditya!</h2>
+        <p>Here's your shop's snapshot today.</p>
+      </div>
+
+      <div class="kpi-scroll">
+        <div class="m-kpi">
+          <div class="m-kpi-icon"><i class="ri-money-rupee-circle-line"></i></div>
+          <div class="m-kpi-val" id="m-kpi-sales">₹0</div>
+          <div class="m-kpi-label">Today's Sales</div>
+        </div>
+        <div class="m-kpi">
+          <div class="m-kpi-icon" style="color:#f59e0b; background:rgba(245,158,11,.15)"><i class="ri-timer-line"></i></div>
+          <div class="m-kpi-val" id="m-kpi-dues" style="color:#f59e0b">₹0</div>
+          <div class="m-kpi-label">Pending Dues</div>
+        </div>
+      </div>
+
+      <h3 class="section-title">Quick Actions</h3>
+      <div class="quick-grid">
+        <button class="quick-btn" onclick="Mobile.go('bill')">
+          <div class="icon" style="background:rgba(123,97,255,.15);color:var(--accent)"><i class="ri-receipt-line"></i></div>
+          <span>New Bill</span>
+        </button>
+        <button class="quick-btn" onclick="Mobile.go('stock')">
+          <div class="icon" style="background:rgba(16,185,129,.15);color:var(--success)"><i class="ri-box-3-line"></i></div>
+          <span>Add Stock</span>
+        </button>
+        <button class="quick-btn" onclick="Mobile.go('dues')">
+          <div class="icon" style="background:rgba(239,68,68,.15);color:var(--danger)"><i class="ri-money-dollar-circle-line"></i></div>
+          <span>Clear Udhar</span>
+        </button>
+        <button class="quick-btn" onclick="alert('WhatsApp integration open')">
+          <div class="icon" style="background:rgba(37,211,102,.15);color:#25D366"><i class="ri-whatsapp-line"></i></div>
+          <span>WhatsApp</span>
+        </button>
+      </div>
+      
+      <div class="recent-bills" style="margin-top:20px;">
+        <h3 class="section-title">Recent Invoices</h3>
+        <div id="m-recent-bills"></div>
+      </div>
+    </section>
+
+    <!-- BILLING PAGE -->
+    <section class="page" id="page-bill">
+      <div class="page-title">Quick Billing</div>
+      
+      <div class="m-card">
+        <label>Customer Mobile or Name</label>
+        <input type="text" id="m-bill-cust" class="m-input" placeholder="Enter customer details..."/>
+      </div>
+      
+      <div class="m-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <label style="margin:0;">Add Item</label>
+          <button class="m-btn m-btn-sm" onclick="MobileBilling.showItemModal()">+ Select</button>
+        </div>
+        <div id="m-bill-items" class="m-items-list">
+          <!-- Items added to cart -->
+          <div style="text-align:center; padding:20px; color:var(--text2); font-size:0.85rem;">No items added yet.</div>
+        </div>
+      </div>
+      
+      <div class="m-card" style="margin-bottom:80px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:600;">
+          <span>Total:</span> <span id="m-bill-total" style="color:var(--accent); font-size:1.2rem;">₹0</span>
+        </div>
+        <button class="m-btn m-btn-primary w-full" style="margin-bottom:10px;" onclick="MobileBilling.saveBill('paid')">Complete & Pay</button>
+        <button class="m-btn m-btn-secondary w-full" onclick="MobileBilling.saveBill('unpaid')" style="color:var(--danger); border-color:var(--danger);">Save as Udhar (Pending)</button>
+      </div>
+    </section>
+
+    <!-- STOCK PAGE -->
+    <section class="page" id="page-stock">
+      <div class="page-title">Inventory</div>
+      <div class="m-search">
+        <i class="ri-search-line"></i>
+        <input type="text" id="m-stock-search" placeholder="Search products..." oninput="MobileStock.render()"/>
+      </div>
+      <div id="m-stock-list" style="padding-bottom:80px;"></div>
+    </section>
+
+    <!-- DUES PAGE -->
+    <section class="page" id="page-dues">
+      <div class="page-title" style="color:var(--danger);">Customer Dues</div>
+      <div class="m-search">
+        <i class="ri-search-line"></i>
+        <input type="text" id="m-dues-search" placeholder="Search by name..." oninput="MobileDues.render()"/>
+      </div>
+      <div id="m-dues-list" style="padding-bottom:80px;"></div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <div class="nav-item active" data-tab="home" onclick="Mobile.go('home')">
+      <i class="ri-home-5-line"></i>
+      <span>Home</span>
+    </div>
+    <div class="nav-item" data-tab="bill" onclick="Mobile.go('bill')">
+      <i class="ri-receipt-line"></i>
+      <span>Bill</span>
+    </div>
+    <div class="nav-item" data-tab="stock" onclick="Mobile.go('stock')">
+      <i class="ri-box-3-line"></i>
+      <span>Stock</span>
+    </div>
+    <div class="nav-item" data-tab="dues" onclick="Mobile.go('dues')">
+      <i class="ri-money-dollar-circle-line"></i>
+      <span>Dues</span>
+    </div>
+  </nav>
+
+  <!-- Product Selection Modal -->
+  <div id="m-item-modal" class="m-modal">
+    <div class="m-modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <h3 style="margin:0;">Select Product</h3>
+        <button class="m-btn m-btn-sm" onclick="document.getElementById('m-item-modal').classList.remove('open')">Close</button>
+      </div>
+      <input type="text" id="m-prod-search" class="m-input" placeholder="Search product..." oninput="MobileBilling.renderProducts()" style="margin-bottom:15px;"/>
+      <div id="m-prod-list" style="max-height:60vh; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+<script src="js/db.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/mobile.js"></script>
+
+<script>
+// ----- PWA INSTALLATION LOGIC (Mobile specific) -----
+let deferredAppPrompt;
+const installAppBtn = document.createElement('button');
+installAppBtn.className = 'm-install-float';
+installAppBtn.innerHTML = '<i class="ri-download-cloud-2-line"></i> <span>Install App</span>';
+document.body.appendChild(installAppBtn);
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js');
+  });
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredAppPrompt = e;
+  installAppBtn.style.display = 'flex';
+});
+
+installAppBtn.addEventListener('click', async () => {
+  if (deferredAppPrompt) {
+    installAppBtn.style.display = 'none';
+    deferredAppPrompt.prompt();
+    const { outcome } = await deferredAppPrompt.userChoice;
+    deferredAppPrompt = null;
+  }
+});
+</script>
+</body>
+</html>

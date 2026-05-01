@@ -1,9 +1,11 @@
 const CACHE_NAME = 'aditya-shop-v1';
 const ASSETS_TO_CACHE = [
-  './',
   './index.html',
   './app.html',
+  './mobile-app.html',
   './css/main.css',
+  './css/mobile.css',
+  './js/mobile.js',
   './A1.jpeg'
 ];
 
