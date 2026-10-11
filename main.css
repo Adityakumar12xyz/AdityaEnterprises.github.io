@@ -502,7 +502,7 @@ select.form-control { appearance:none; background-image:url("data:image/svg+xml,
 .fab:hover { transform:scale(1.1) rotate(45deg); box-shadow:0 8px 32px rgba(123,97,255,.6); }
 
 /* ===== PWA INSTALL ===== */
-.install-float { position:fixed; bottom:28px; left:28px; z-index:9999; padding:12px 20px; border-radius:99px; background:var(--gradient); color:#fff; border:none; font-family:'Inter',sans-serif; font-weight:600; font-size:.9rem; cursor:pointer; box-shadow:0 8px 24px rgba(123,97,255,.4); display:none; align-items:center; gap:8px; transition:all .2s; animation:slideUp .4s ease; }
+.install-float { position:fixed; bottom:28px; left:28px; z-index:9999; padding:12px 20px; border-radius:99px; background:var(--gradient); color:#fff; border:none; font-family:'Inter',sans-serif; font-weight:600; font-size:.9rem; cursor:pointer; box-shadow:0 8px 24px rgba(123,97,255,.4); display:flex; align-items:center; gap:8px; transition:all .2s; animation:slideUp .4s ease; }
 .install-float:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(123,97,255,.5); }
 @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
