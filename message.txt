@@ -1,0 +1,8 @@
+Hi {{name}}! 👋
+
+Greetings from *Aditya Enterprises*! 🎆
+
+Check out our new arrivals and special offers today! ⚡
+
+Best regards,
+*Aditya Enterprises*
