@@ -529,10 +529,11 @@
               <span class="card-title">2. Dispatcher Console</span>
               <div style="display:flex;align-items:center;gap:8px">
                 <span style="font-size:.7rem;color:var(--text3)">MODE:</span>
-                <select id="wa-send-mode" class="bdf-select" style="padding:2px 8px;font-size:0.7rem;width:auto">
-                  <option value="magic">🚀 ZERO-BUDGET AUTO (Script)</option>
-                  <option value="api">⚡ ULTRA PRO (API)</option>
-                  <option value="manual">🕒 STANDARD (Manual)</option>
+                <select id="wa-send-mode" class="bdf-select" style="padding:2px 8px;font-size:0.7rem;width:auto" onchange="WhatsApp.onModeChange()">
+                  <option value="export">📥 1-CLICK EXCEL (Recommended for 2000+)</option>
+                  <option value="api">⚡ ULTRA PRO (Green-API Background)</option>
+                  <option value="magic">🚀 ZERO-BUDGET (Console Script)</option>
+                  <option value="manual">🕒 STANDARD (Manual wa.me)</option>
                 </select>
               </div>
             </div>
@@ -547,12 +548,12 @@
               
               <div style="display:flex;gap:10px">
                 <button id="btn-wa-start" class="btn btn-primary" style="flex:1;background:#25D366;border:none;box-shadow:0 6px 20px rgba(37,211,102,.3);height:44px" onclick="WhatsApp.startBroadcast()">
-                  <i class="ri-play-fill"></i> Launch Broadcast
+                  <i class="ri-download-2-line"></i> Download Bulk Excel
                 </button>
                 <button id="btn-wa-pause" class="btn btn-danger btn-icon" style="display:none" onclick="WhatsApp.pauseBroadcast()"><i class="ri-pause-fill"></i></button>
                 <button id="btn-wa-reset" class="btn btn-secondary btn-icon" onclick="WhatsApp.resetBroadcast()"><i class="ri-restart-line"></i></button>
               </div>
-              <p id="wa-mode-hint" style="font-size:.7rem;color:var(--text3);text-align:center;margin-top:10px">🚀 Ultra Mode: One-click background sending (No Enter required).</p>
+              <p id="wa-mode-hint" style="font-size:.7rem;color:var(--text3);text-align:center;margin-top:10px">📥 1-Click Excel: Download all contacts & customized messages for Chrome Bulk Sender extensions (Safest for 2000+ numbers).</p>
             </div>
           </div>
         </div>
@@ -576,6 +577,7 @@
           <div class="card-footer" style="padding:12px;display:flex;gap:8px">
              <button class="btn btn-sm btn-secondary" style="flex:1" onclick="document.getElementById('wa-file-input').click()"><i class="ri-file-excel-2-line"></i> Excel Batch</button>
              <button class="btn btn-sm btn-secondary" style="flex:1" onclick="WhatsApp.openPasteModal()"><i class="ri-clipboard-line"></i> Paste Numbers</button>
+             <button class="btn btn-sm btn-primary" style="flex:1;background:var(--accent);border-color:var(--accent)" onclick="WhatsApp.exportBroadcastList()" title="Download Excel formatted for Bulk WhatsApp Sender"><i class="ri-file-download-line"></i> Export for Bulk Tools</button>
              <input type="file" id="wa-file-input" accept=".xlsx,.xls,.csv" style="display:none" onchange="WhatsApp.processExcel(this.files[0])"/>
           </div>
         </div>
